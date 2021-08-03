@@ -1,0 +1,13 @@
+.pagination-nav {
+    text-align: center;
+}
+
+.pagination-nav ul {
+  list-style: none;
+}
+
+.pagination-nav li {
+    text-align: left;
+    display: inline-block;
+    margin: 10px;
+}

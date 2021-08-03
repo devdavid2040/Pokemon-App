@@ -1,0 +1,39 @@
+.card-link {
+  text-decoration: none;
+  color: black;
+}
+
+.pokemon-name {
+  font-size: 23px;
+  margin-bottom: 10px;
+}
+
+.card-div {
+  display: flex;
+  margin: 10px;
+  width: 350px;
+  height: 420px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: rgba(0, 207, 179, 0.322);
+}
+
+.types-div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pokemonType-span {
+  margin: 10px 7px 0px;
+  padding: 5px 30px;
+  font-size: 15px;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+}
+
+.card-div img {
+  width: 200px;
+  height: 200px;
+}
