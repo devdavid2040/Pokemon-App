@@ -8,26 +8,22 @@ const upperFirst = (str) => {
 // Get 40 pokemons from PokeAPI
 const getApiPokemons = async () => {
   try {
-    const arrRequests = [];
-    const arrResults = [];
-    for (let i = 1; i < 41; i++) {
-      arrRequests.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`));
-    }
-    await axios.all(arrRequests).then(
-      axios.spread((...responses) => {
-        for (let response of responses) {
-          arrResults.push(response.data);
-        }
-      })
+    const { data } = await axios.get(
+      "https://pokeapi.co/api/v2/pokemon?limit=40"
     );
-    const results = arrResults.map((elem) => {
-      return {
-        id: elem.id,
-        name: upperFirst(elem.name),
-        image: elem.sprites.other.dream_world.front_default,
-        type: elem.types.map((elem) => upperFirst(elem.type.name)),
-      };
-    });
+    const response = await axios.all(
+      data.results.map(async ({ url }) => await axios.get(url))
+    );
+    const results = response
+      .map((elem) => elem.data)
+      .map((elem) => {
+        return {
+          id: elem.id,
+          name: upperFirst(elem.name),
+          image: elem.sprites.other.dream_world.front_default,
+          type: elem.types.map((elem) => upperFirst(elem.type.name)),
+        };
+      });
     return results;
   } catch (error) {
     console.log(error);
@@ -73,44 +69,42 @@ const getAllPokemons = async () => {
 const getPokemons = async (req, res, next) => {
   const { name } = req.query;
   try {
-    // First 40 pokemons
-    const allPokemons = await getAllPokemons();
-    
     // Search by name
     if (name) {
       const dbPokemons = await getDbPokemons();
-      const apiResponse = await axios.get(
+      const { data } = await axios.get(
         `https://pokeapi.co/api/v2/pokemon/${name}`
       );
-      const results = dbPokemons.concat(apiResponse)
-      results.filter((elem) => {
-        return elem.name.toLowerCase().includes(name.toLowerCase());
-      })
-      const pokemonName = await allPokemons.filter((elem) => {
+      const pokemonFound = {
+        id: data.id,
+        name: upperFirst(data.name),
+        attack: data.stats.find((elem) => elem.stat.name === "attack")
+          .base_stat,
+        defense: data.stats.find((elem) => elem.stat.name === "defense")
+          .base_stat,
+        speed: data.stats.find((elem) => elem.stat.name === "speed").base_stat,
+        height: data.height,
+        weight: data.weight,
+        image: data.sprites.other.dream_world.front_default,
+        type: data.types.map((elem) => upperFirst(elem.type.name)),
+      };
+      console.log(pokemonFound);
+      const allResults = dbPokemons.concat(pokemonFound);
+      const pokemon = allResults.filter((elem) => {
         return elem.name.toLowerCase().includes(name.toLowerCase());
       });
-      return pokemonName.length
-        ? res.status(200).send(pokemonName)
+      return pokemon.length
+        ? res.status(200).send(pokemon)
         : res.status(400).send("Pokemon not found");
     } else {
+      // First 40 pokemons
+      const allPokemons = await getAllPokemons();
       return res.status(200).send(allPokemons);
     }
   } catch (error) {
     next(error);
   }
 };
-
-// return {
-//   id: elem.id,
-//   name: upperFirst(elem.name),
-//   attack: elem.stats.find((elem) => elem.stat.name === "attack").base_stat,
-//   defense: elem.stats.find((elem) => elem.stat.name === "defense").base_stat,
-//   speed: elem.stats.find((elem) => elem.stat.name === "speed").base_stat,
-//   height: elem.height,
-//   weight: elem.weight,
-//   image: elem.sprites.other.dream_world.front_default,
-//   type: elem.types.map((elem) => upperFirst(elem.type.name)),
-// };
 
 const getPokemonDetail = async (req, res, next) => {
   const { id } = req.params;
