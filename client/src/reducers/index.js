@@ -50,7 +50,7 @@ const rootReducer = (state = initialState, action) => {
 
     // Order and filter
     case ORDER_BY_NAME:
-      let arr =
+      const arr =
         action.payload === "asc"
           ? state.pokemons.sort((a, b) => {
               if (a.name > b.name) return 1;
@@ -72,7 +72,7 @@ const rootReducer = (state = initialState, action) => {
       const typeFilter =
         action.payload === "all"
           ? allPokemons
-          : allPokemons.filter((elem) => elem.type.includes(action.payload));
+          : allPokemons && allPokemons.filter((elem) => elem.types.name === action.payload);
       return {
         ...state,
         pokemons: typeFilter,
@@ -80,11 +80,16 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER_CREATED:
       const allPokemonsCreated = state.allPokemons;
-      const createdFilter =
-        action.payload === "created"
-          ? allPokemonsCreated.filter((elem) => elem.createdInDb)
-          : allPokemonsCreated.filter((elem) => !elem.createdInDb);
-          
+      let createdFilter;
+      if (action.payload === "all") {
+        createdFilter = state.allPokemons;
+      }
+      if (action.payload === "created") {
+        createdFilter = allPokemonsCreated.filter((elem) => elem.createdInDb);
+      }
+      if (action.payload === "api") {
+        createdFilter = allPokemonsCreated.filter((elem) => !elem.createdInDb);
+      }
       return {
         ...state,
         pokemons: createdFilter,

@@ -1,0 +1,30 @@
+.navBar {
+  display: flex;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4acfc0;
+  box-shadow: 0px 0.5px 10px 1px rgba(0, 0, 0, 0.377);
+}
+
+.navBar button {
+  font-size: inherit;
+  background-color: #c5fdf0;
+  color: #073b77;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin: 50px;
+  transition: background 250ms, box-shadow 250ms, transform 50ms;
+}
+
+.navBar button:hover {
+    background: #80ffe1;
+    box-shadow: -1px 1px 5px rgb(133, 133, 133);
+}
+
+.navBar button:active {
+    outline: none;
+    transform: scale(0.95, 0.95);
+}

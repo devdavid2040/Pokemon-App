@@ -3,6 +3,7 @@ import "./App.css";
 import LandingPage from "./components/landingPage/LandingPage";
 import Create from "./components/create/Create";
 import Home from "./components/home/Home";
+import Detail from "./components/detail/Detail";
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route path="/home" component={Home} />
-          <Route path="/create" component={Create} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/create" component={Create} />
+          <Route exact path="/pokemons/:id" component={Detail} />
         </Switch>
       </div>
     </BrowserRouter>

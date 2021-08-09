@@ -59,7 +59,7 @@ export const postPokemon = (payload) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/pokemon",
+        "http://localhost:3001/pokemons",
         payload
       );
       return response;

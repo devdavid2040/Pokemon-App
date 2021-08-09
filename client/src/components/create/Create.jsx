@@ -20,7 +20,7 @@ const Create = () => {
     height: "",
     weight: "",
     image: "",
-    type: [],
+    types: [],
   });
 
   console.log(input);
@@ -31,7 +31,7 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!input.type.length) {
+    if (!input.types.length) {
       alert("Type can't be empty");
     } else {
       dispatch(postPokemon(input));
@@ -62,14 +62,14 @@ const Create = () => {
   const handleSelect = (e) => {
     setInput({
       ...input,
-      type: [...input.type, e.target.value],
+      types: [...input.types, e.target.value],
     });
   };
 
   const handleDelete = (value) => {
     setInput({
       ...input,
-      type: input.type.filter((elem) => elem !== value),
+      types: input.types.filter((elem) => elem !== value),
     });
   };
 
@@ -175,7 +175,7 @@ const Create = () => {
         </div>
 
         <div>
-          <label>Type</label>
+          <label>Types</label>
           <select defaultValue={"default"} onChange={handleSelect}>
             <option value="default" disabled>
               Select types for your Pokemon
@@ -188,14 +188,18 @@ const Create = () => {
               ))}
           </select>
         </div>
-        {input.type.map((elem, idx) => (
-          <div key={idx}>
-            <label>{elem}</label>
-            <button onClick={() => handleDelete(elem)} className="delete-btn">
-              x
-            </button>
-          </div>
-        ))}
+
+        <div>
+          {input.types.map((elem, idx) => (
+            <div key={idx}>
+              <label>{elem}</label>
+              <button onClick={() => handleDelete(elem)} className="delete-btn">
+                x
+              </button>
+            </div>
+          ))}
+        </div>
+
         <input type="submit" value="Create!" />
       </form>
     </div>

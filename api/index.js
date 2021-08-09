@@ -27,12 +27,11 @@ conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
     try {
       const response = await axios.get("https://pokeapi.co/api/v2/type");
-      const arrTypes = response.data.results.map((elem) => {
-        return {
-          name: elem.name[0].toUpperCase() + elem.name.substr(1),
-        };
-      });
-      await Type.bulkCreate(arrTypes);
+      await Type.bulkCreate(
+        response.data.results.map(({ name }) => {
+          return { name: name[0].toUpperCase() + name.substr(1).toLowerCase() };
+        })
+      );
     } catch (error) {
       console.log(error);
     } finally {
