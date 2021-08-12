@@ -1,19 +1,18 @@
-const axios = require("axios");
 const { Pokemon, Type } = require("../db");
-const { setPokemon, getDbPokemons, getAllPokemons } = require("../utils/index");
+const {
+  getDbPokemons,
+  getAllPokemons,
+  getApiPokemonByName,
+  getApiPokemonById,
+} = require("../utils/index");
 
 // GET /pokemons & GET /pokemons?name={name}
 const getPokemons = async (req, res, next) => {
   const { name } = req.query;
   try {
     if (name) {
-      const dbPokemons = await getDbPokemons().catch((error) => {
-        console.log(error);
-      });
-      const apiPokemon = await axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`)
-        .then((response) => setPokemon(response.data))
-        .catch((error) => console.log(error));
+      const dbPokemons = await getDbPokemons();
+      const apiPokemon = await getApiPokemonByName(name);
       const allPokemons = apiPokemon
         ? dbPokemons.concat(apiPokemon)
         : dbPokemons;
@@ -24,9 +23,7 @@ const getPokemons = async (req, res, next) => {
         ? res.status(200).send(results)
         : res.status(400).send("Pokemon not found");
     } else {
-      const allPokemons = await getAllPokemons().catch((error) => {
-        console.log(error);
-      });
+      const allPokemons = await getAllPokemons();
       return allPokemons
         ? res.status(200).send(allPokemons)
         : res.status(400).send("Error. Please, refresh the page");
@@ -41,10 +38,7 @@ const getPokemonDetail = async (req, res, next) => {
   try {
     if (id) {
       if (/^([0-9])*$/.test(id)) {
-        const apiPokemon = await axios
-          .get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-          .then((response) => setPokemon(response.data))
-          .catch((error) => console.log(error));
+        const apiPokemon = await getApiPokemonById(id);
         return apiPokemon
           ? res.status(200).send(apiPokemon)
           : res.status(400).send("Insert a valid ID");
@@ -73,7 +67,6 @@ const getPokemonDetail = async (req, res, next) => {
 const postPokemon = async (req, res, next) => {
   const { name, hp, attack, defense, speed, height, weight, image, types } =
     req.body;
-  console.log(req.body);
   try {
     const pokemonCreated = await Pokemon.create({
       name,

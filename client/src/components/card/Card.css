@@ -1,14 +1,21 @@
 .card-link {
   text-decoration: none;
+  transition: transform 50ms;
   color: black;
+}
+
+.card-link:active {
+  transform: scale(0.95, 0.95);
 }
 
 .pokemon-name {
   font-size: 23px;
   margin-bottom: 10px;
+  color: aliceblue;
 }
 
 .card-div {
+  text-align: center;
   display: flex;
   margin: 10px;
   width: 350px;
@@ -16,7 +23,21 @@
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  background-color: rgba(0, 207, 179, 0.322);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.377);
+  transition: transform 150ms, box-shadow 150ms;
+  background: #F7AF25;
+  /* background: rgb(2, 0, 36);
+  background: linear-gradient(
+    0deg,
+    rgb(8, 0, 156) 0%,
+    rgba(0, 212, 255, 1) 60%
+  ); */
+}
+
+.card-div:hover {
+  transform: scale(1.05, 1.05);
+  cursor: pointer;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.377);
 }
 
 .types-div {
@@ -34,6 +55,8 @@
 }
 
 .card-div img {
+  border-radius: 5px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));
   width: 200px;
   height: 200px;
 }

@@ -6,13 +6,16 @@ export const GET_DETAIL = "GET_DETAIL";
 export const POST_POKEMON = "POST_POKEMON";
 // Order and filter
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
+export const ORDER_BY_ATTACK = "ORDER_BY_ATTACK";
 export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 export const FILTER_CREATED = "FILTER_CREATED";
+
+const BASE_URL = "http://localhost:3001"
 
 export const getPokemons = () => {
   return async (dispatch) => {
     try {
-      const response = await axios("http://localhost:3001/pokemons");
+      const response = await axios(`${BASE_URL}/pokemons`);
       return dispatch({ type: GET_POKEMONS, payload: response.data });
     } catch (error) {
       console.log(error);
@@ -23,7 +26,7 @@ export const getPokemons = () => {
 export const getTypes = () => {
   return async (dispatch) => {
     try {
-      const response = await axios("http://localhost:3001/types");
+      const response = await axios(`${BASE_URL}/types`);
       return dispatch({ type: GET_TYPES, payload: response.data });
     } catch (error) {
       console.log(error);
@@ -74,6 +77,13 @@ export const postPokemon = (payload) => {
 export const orderByName = (payload) => {
   return {
     type: ORDER_BY_NAME,
+    payload,
+  };
+};
+
+export const orderByAttack = (payload) => {
+  return {
+    type: ORDER_BY_ATTACK,
     payload,
   };
 };

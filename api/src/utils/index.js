@@ -18,9 +18,9 @@ const setPokemon = (data) => {
     image:
       data.sprites.other.dream_world.front_default ||
       data.sprites.other["official-artwork"].front_default,
-    types: data.types.map((elem) => {
+    types: data.types.map(({ type }) => {
       return {
-        name: upperFirst(elem.type.name),
+        name: upperFirst(type.name),
       };
     }),
   };
@@ -36,7 +36,7 @@ const getApiPokemons = async () => {
       data.results.map(async ({ url }) => await axios.get(url))
     );
     const results = response
-      .map((elem) => elem.data)
+      .map(({ data }) => data)
       .map((elem) => setPokemon(elem));
     return results;
   } catch (error) {
@@ -74,10 +74,33 @@ const getAllPokemons = async () => {
   }
 };
 
+// Get Pokemon from API by name (exact match)
+const getApiPokemonByName = async (name) => {
+  try {
+    const { data } = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`
+    );
+    const result = setPokemon(data);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Get Pokemon from API by ID
+const getApiPokemonById = async (id) => {
+  try {
+    const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const result = setPokemon(data);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
-  upperFirst,
-  setPokemon,
-  getApiPokemons,
   getDbPokemons,
   getAllPokemons,
+  getApiPokemonByName,
+  getApiPokemonById,
 };

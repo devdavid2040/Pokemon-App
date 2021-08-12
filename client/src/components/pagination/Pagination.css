@@ -1,5 +1,5 @@
 .pagination-nav {
-    text-align: center;
+  text-align: center;
 }
 
 .pagination-nav ul {
@@ -7,7 +7,11 @@
 }
 
 .pagination-nav li {
-    text-align: left;
-    display: inline-block;
-    margin: 10px;
+  text-align: left;
+  display: inline-block;
+  margin: 5px;
+}
+
+.pagination-nav button:hover {
+  cursor: pointer;
 }

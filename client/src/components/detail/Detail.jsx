@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getDetail } from "../../actions/index";
 import NavBar from "../navBar/NavBar";
 import Spinner from "../spinner/Spinner";
+import "./Detail.css";
 
 const Detail = ({ match }) => {
   const dispatch = useDispatch();
@@ -16,11 +17,12 @@ const Detail = ({ match }) => {
   return (
     <>
       <NavBar />
-      <div>
+      <div className="detail-div">
         {Object.keys(pokemon).length && String(pokemon.id) === String(id) ? (
           <div>
             <h1>{pokemon.name}</h1>
             <img src={pokemon.image} alt="" />
+            <p>ID: {pokemon.id}</p>
             <p>Hp: {pokemon.hp}</p>
             <p>Attack: {pokemon.attack}</p>
             <p>Defense: {pokemon.defense}</p>
@@ -37,4 +39,4 @@ const Detail = ({ match }) => {
   );
 };
 
-export default Detail;
+export default React.memo(Detail);

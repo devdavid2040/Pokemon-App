@@ -1,10 +1,26 @@
 .navBar {
   display: flex;
-  height: 60px;
-  justify-content: space-between;
   align-items: center;
-  background-color: #4acfc0;
+  height: 130px;
+  justify-content: space-between;
+  background: #b21919;
   box-shadow: 0px 0.5px 10px 1px rgba(0, 0, 0, 0.377);
+}
+
+#img-logo {
+  width: 200px;
+}
+
+#img-pokeball {
+  width: 100px;
+  margin-left: 50px;
+  transition: transform 150ms, filter 150ms;
+}
+
+#img-pokeball:hover {
+  transform: scale(1.05, 1.05);
+  cursor: pointer;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));
 }
 
 .navBar button {
@@ -20,11 +36,11 @@
 }
 
 .navBar button:hover {
-    background: #80ffe1;
-    box-shadow: -1px 1px 5px rgb(133, 133, 133);
+  background: #80ffe1;
+  box-shadow: -1px 1px 5px rgb(133, 133, 133);
 }
 
 .navBar button:active {
-    outline: none;
-    transform: scale(0.95, 0.95);
+  outline: none;
+  transform: scale(0.95, 0.95);
 }

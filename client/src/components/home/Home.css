@@ -1,3 +1,33 @@
 .home-container {
-    background-color: rgb(248, 228, 250);
+  background: #eb6d18;
+}
+
+.filters-div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px;
+}
+
+.filters-div select {
+  background-color: rgb(235, 235, 235);
+  padding: 10px;
+  margin: 20px;
+}
+
+.footer-home {
+  margin-top: 50px;
+  height: 150px;
+  background: #98521a;
+  background: linear-gradient(
+    0deg,
+    #98521a 20%,
+    rgba(0, 212, 255, 0) 100%
+  );
+  /* background: rgb(13, 0, 233);
+  background: linear-gradient(
+    0deg,
+    rgb(0, 233, 214) 0%,
+    rgba(0, 212, 255, 0) 100%
+  ); */
 }

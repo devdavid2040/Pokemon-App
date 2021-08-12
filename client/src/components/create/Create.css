@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+.form-div {
+  font-family: "Bebas Neue", cursive;
+  margin: 50px;
+}
+
+.form-div h1 {
+  font-size: 50px;
+}
+
+.form-div div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.form-div label {
+  font-size: 30px;
+}
+
+.form-div input {
+  width: 600px;
+  height: 30px;
+}
+
+input.danger {
+  border: 2px solid red;
+}
+
+p.danger {
+  color: red;
+  font-size: 20px;
+}
