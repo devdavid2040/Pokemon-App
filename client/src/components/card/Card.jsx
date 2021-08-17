@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../card/Card.css";
 
-const Card = ({ id, name, image, types }) => {
+const Card = ({ id, name, image, types, createdInDb }) => {
   return (
     <div className="card-div">
       <Link to={`pokemons/${id}`} className="card-link">
@@ -15,6 +15,7 @@ const Card = ({ id, name, image, types }) => {
             </span>
           ))}
         </div>
+        {createdInDb && <p>Created by me</p>}
       </Link>
     </div>
   );

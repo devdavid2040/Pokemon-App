@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as actions from "../../actions";
 import Cards from "../cards/Cards";
 import NavBar from "../navBar/NavBar";
 import Pagination from "../pagination/Pagination";
 import SearchBar from "../searchBar/SearchBar";
+import * as actions from "../../actions";
+import { reduceTypes } from "../../utils";
 import "./Home.css";
 
 const Home = () => {
@@ -18,7 +19,7 @@ const Home = () => {
 
   // Pagination config
   const [currentPage, setCurrentPage] = useState(1);
-  const [pokemonsPerPage] = useState(9);
+  const pokemonsPerPage = 9;
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
   const currentPokemons = pokemons.slice(
@@ -32,48 +33,37 @@ const Home = () => {
 
   // Filters
   const [order, setOrder] = useState("");
-  console.log(order);
+  console.log(`Order ${order}`);
 
   const handleOrder = (e) => {
     e.preventDefault();
-    if (e.target.value === "asc" || e.target.value === "desc") {
-      dispatch(actions.orderByName(e.target.value));
-      setCurrentPage(1);
-    }
-    if (e.target.value === "min" || e.target.value === "max") {
-      dispatch(actions.orderByAttack(e.target.value));
-      setCurrentPage(1);
-    }
-    setOrder(`Order ${e.target.value}`);
+    dispatch(actions.order(e.target.value));
+    setOrder(e.target.value);
+    setCurrentPage(1);
   };
 
   const handleFilterType = (e) => {
     e.preventDefault();
-    setCurrentPage(1);
     dispatch(actions.filterByType(e.target.value));
+    // dispatch(actions.order(order));
+    setCurrentPage(1);
   };
 
   const handleFilterCreated = (e) => {
     e.preventDefault();
-    setCurrentPage(1);
     dispatch(actions.filterCreated(e.target.value));
-  };
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    dispatch(actions.getPokemons());
+    setCurrentPage(1);
   };
 
   return (
     <div className="home-container">
       <NavBar />
-      <h1>Select your Pokémon</h1>
       <SearchBar />
 
       <div className="filters-div">
         {/* Order */}
         <select defaultValue="default" onChange={handleOrder}>
-          <option value="default" disabled>
+          <option value="default" hidden>
             Select order
           </option>
           <option value="asc">Ascendent (A - Z)</option>
@@ -83,26 +73,23 @@ const Home = () => {
         </select>
 
         {/* Filter */}
-        <select onChange={handleFilterType}>
+        <select defaultValue="default" onChange={handleFilterType}>
+          <option value="default" hidden>
+            Select type
+          </option>
           <option value="allTypes">All</option>
           {allPokemons &&
-            allPokemons
-              .map(({ types }) => types)
-              .flat()
-              .reduce((acc, cur) => {
-                if (!acc.includes(cur.name)) {
-                  acc.push(cur.name);
-                }
-                return acc;
-              }, [])
-              .map((elem, idx) => (
-                <option key={idx} value={elem}>
-                  {elem}
-                </option>
-              ))}
+            reduceTypes(allPokemons).map((elem, idx) => (
+              <option key={idx} value={elem}>
+                {elem}
+              </option>
+            ))}
         </select>
 
-        <select onChange={handleFilterCreated}>
+        <select defaultValue="default" onChange={handleFilterCreated}>
+          <option value="default" hidden>
+            Select origin
+          </option>
           <option value="all">All</option>
           <option value="created">Created by me</option>
           <option value="api">Api</option>
@@ -114,8 +101,13 @@ const Home = () => {
         allPokemons={pokemons.length}
         paginate={paginate}
       />
-      {currentPokemons.length && currentPokemons[0] === null ? (
-        <h3>Oops! Pokemons not found</h3>
+      {!currentPokemons ? (
+        <div>
+          <h3>Oops! Pokemons not found.</h3>
+          <button onClick={() => dispatch(actions.getPokemons())}>
+            Refresh
+          </button>
+        </div>
       ) : (
         currentPokemons && <Cards pokemons={currentPokemons} />
       )}
@@ -124,4 +116,4 @@ const Home = () => {
   );
 };
 
-export default React.memo(Home);
+export default Home;

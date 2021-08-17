@@ -70,12 +70,12 @@ const postPokemon = async (req, res, next) => {
   try {
     const pokemonCreated = await Pokemon.create({
       name,
-      hp,
-      attack,
-      defense,
-      speed,
-      height,
-      weight,
+      hp: hp === "" ? 0 : hp,
+      attack: attack === "" ? 0 : attack,
+      defense: defense === "" ? 0 : defense,
+      speed: speed === "" ? 0 : speed,
+      height: height === "" ? 0 : height,
+      weight: weight === "" ? 0 : weight,
       image: image !== "" ? image : undefined,
     });
     const typeDb = await Type.findAll({

@@ -99,6 +99,7 @@ const getApiPokemonById = async (id) => {
 };
 
 module.exports = {
+  upperFirst,
   getDbPokemons,
   getAllPokemons,
   getApiPokemonByName,

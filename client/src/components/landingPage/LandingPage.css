@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@700&family=Roboto:wght@300&display=swap");
+
+.landing-container {
+  background: rgb(80, 85, 157);
+  background: linear-gradient(
+    140deg,
+    rgba(80, 85, 157, 1) 0%,
+    rgba(78, 168, 255, 1) 51%,
+    rgba(18, 0, 71, 1) 100%
+  );
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.landing-text {
+  margin-top: 100px;
+  text-align: right;
+  margin-right: 50px;
+  text-shadow: 0px 1px 10px black;
+  color: antiquewhite;
+}
+
+.pokemonImg {
+  display: flex;
+  width: 100vh;
+  object-fit: cover;
+  margin-left: -50px;
+  image-rendering: optimizeSpeed;
+}
+
+.landing-container hr {
+  background-color: lightseagreen;
+  margin-right: 0;
+  width: 520px;
+  height: 5px;
+  border: none;
+}
+
+.landing-container h1 {
+  font-family: "Fira Sans", sans-serif;
+  font-size: 70px;
+}
+
+.landing-container h3 {
+  font-family: "Roboto", sans-serif;
+  font-size: 32px;
+}
+
+.landing-container .landing-btn {
+  font-family: "Fira Sans", sans-serif;
+  font-size: 35px;
+  width: 180px;
+  height: 80px;
+  background-color: #c5fdf0;
+  color: #073b77;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 0px 5px 10px 0px rgb(0, 0, 0);
+  transition: background 250ms, box-shadow 250ms, padding 100ms;
+}
+
+.landing-container .landing-btn:hover {
+  background: #80ffe1;
+  box-shadow: -1px 1px 5px rgb(133, 133, 133);
+}
+
+.landing-container .landing-btn:active {
+  outline: none;
+  padding: 9px 14px;
+}

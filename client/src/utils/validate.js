@@ -4,7 +4,7 @@ export default function validate(input) {
   // Validate name
   if (!input.name) {
     errors.name = "Name can't be empty";
-  } else if (!/[A-Z]/.test(input.name)) {
+  } else if (!/[a-zA-Z]{4,10}/.test(input.name)) {
     errors.name = "Incorrect name";
   }
 
@@ -48,6 +48,14 @@ export default function validate(input) {
     errors.weight = "Weight can't be empty";
   } else if (!/^\d+$/.test(input.weight)) {
     errors.weight = "Weight must be a integer";
+  }
+
+  // Validate image
+  if (
+    input.image !== "" &&
+    !/^(ftp|http|https):\/\/[^ "]+$/.test(input.image)
+  ) {
+    errors.image = "Image must be a URL";
   }
 
   return errors;

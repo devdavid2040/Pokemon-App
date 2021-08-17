@@ -17,6 +17,7 @@ const Cards = ({ pokemons }) => {
             name={elem.name}
             image={elem.image}
             types={elem.types}
+            createdInDb={elem.createdInDb ? elem.createdInDb : null}
           />
         ))
       )}
@@ -24,4 +25,4 @@ const Cards = ({ pokemons }) => {
   );
 };
 
-export default Cards;
+export default React.memo(Cards);

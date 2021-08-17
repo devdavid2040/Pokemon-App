@@ -1,21 +1,20 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Link } from "react-router-dom";
-import { getPokemons } from "../../actions/index";
+import "./LandingPage.css";
 
 const LandingPage = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getPokemons());
-  }, [dispatch]);
 
   return (
-    <div>
-      <h1>Welcome to Pokemon App!</h1>
-      <Link to="/home">
-        <button type="submit">Let's go!</button>
-      </Link>
+    <div className="landing-container">
+      <img className="pokemonImg" src="https://images6.alphacoders.com/475/thumb-1920-475761.jpg" alt="" />
+      <div className="landing-text">
+        <h1>Welcome to Pokemon App!</h1>
+        <hr />
+        <h3>Here you can find all kinds of Pokémons</h3>
+        <Link to="/home">
+          <button className="landing-btn">Let's go!</button>
+        </Link>
+      </div>
     </div>
   );
 };

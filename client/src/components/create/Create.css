@@ -5,6 +5,30 @@
   margin: 50px;
 }
 
+#submit-btn {
+  width: 500px;
+  height: 50px;
+  font-family: "Bebas Neue", cursive;
+  font-size: 30px;
+  background-color: #c5fdf0;
+  color: #073b77;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  transition: background 250ms, box-shadow 250ms, transform 50ms;
+}
+
+#submit-btn:hover {
+  background: #80ffe1;
+  box-shadow: 0px 0px 5px rgb(133, 133, 133);
+}
+
+#submit-btn:active {
+  outline: none;
+  transform: scale(0.95, 0.95);
+}
+
 .form-div h1 {
   font-size: 50px;
 }
@@ -32,4 +56,13 @@ input.danger {
 p.danger {
   color: red;
   font-size: 20px;
+}
+
+div.types-selected {
+  background: rgb(224, 224, 224);
+  border-radius: 10px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
