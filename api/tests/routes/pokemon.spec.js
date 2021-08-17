@@ -19,19 +19,14 @@ describe("Pokemon routes", () => {
     Pokemon.sync({ force: true }).then(() => Pokemon.create(pokemon))
   );
   describe("GET /pokemons", () => {
-    it("should get 200", (done) => agent.get("/pokemons").expect(200, done));
+    it("should get 200", (done) =>
+      agent.get("/pokemons").expect(200, done)).timeout(15000);
   });
   describe("GET /pokemons?name='name'", () => {
     it("responds with a correct pokemon --> 'Pikachu'", () =>
       agent.get("/pokemons?name=pikachu").then((res) => {
         console.log(res.body);
         expect(res.body[0].name).to.equal("Pikachu");
-      })).timeout(5000);
+      })).timeout(1000);
   });
-  // it("debe poder buscar correctamente un pokemon por query", () => {
-  //   agent
-  //     .get("/pokemons?name=bulbasaur")
-  //     .expect("Content-Type", /json/)
-  //     .expect((res) => expect(res.body.name).toEqual("Bulbasaur"));
-  // });
 });
