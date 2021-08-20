@@ -2,19 +2,6 @@
   background: #eb6d18;
 }
 
-.filters-div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 10px;
-}
-
-.filters-div select {
-  background-color: rgb(235, 235, 235);
-  padding: 10px;
-  margin: 20px;
-}
-
 .footer-home {
   margin-top: 50px;
   height: 150px;

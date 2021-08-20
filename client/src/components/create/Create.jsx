@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { getTypes, postPokemon } from "../../actions/index";
 import NavBar from "../navBar/NavBar";
 import validate from "../../utils/validate";
+import swal from "sweetalert";
 import "./Create.css";
 
 const Create = () => {
@@ -12,7 +13,6 @@ const Create = () => {
   const types = useSelector((state) => state.types);
 
   const [errors, setErrors] = useState({});
-  console.log(errors)
 
   const [input, setInput] = useState({
     name: "",
@@ -25,7 +25,6 @@ const Create = () => {
     image: "",
     types: [],
   });
-  console.log(input)
 
   useEffect(() => {
     dispatch(getTypes());
@@ -34,24 +33,28 @@ const Create = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (Object.keys(errors).length > 0) {
-      alert("Complete all inputs correctly")
+      swal("Complete all inputs correctly");
     } else if (!input.types.length) {
-      alert("Types can't be empty");
+      swal("Select at least one type");
     } else {
       dispatch(postPokemon(input));
-      alert("Pokemon successfully created!");
-      setInput({
-        name: "",
-        hp: "",
-        attack: "",
-        defense: "",
-        speed: "",
-        height: "",
-        weight: "",
-        image: "",
-        types: [],
+      swal({
+        title: "Pokemon successfully created!",
+        icon: "success",
+      }).then(() => {
+        history.push("/home");
+        setInput({
+          name: "",
+          hp: "",
+          attack: "",
+          defense: "",
+          speed: "",
+          height: "",
+          weight: "",
+          image: "",
+          types: [],
+        });
       });
-      history.push("/home");
     }
   };
 

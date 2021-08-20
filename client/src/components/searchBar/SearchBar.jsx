@@ -23,9 +23,9 @@ const SearchBar = () => {
     <div className="searchBar-container">
       <form onSubmit={handleSubmit}>
         <input
+          required
           id="searchBar-input"
           type="text"
-          required
           value={name}
           placeholder="Insert name..."
           onChange={handleInputChange}

@@ -33,11 +33,9 @@ const getApiPokemons = async () => {
       "https://pokeapi.co/api/v2/pokemon?limit=40"
     );
     const response = await axios.all(
-      data.results.map(async ({ url }) => await axios.get(url))
+      data.results.map(({ url }) => axios.get(url))
     );
-    const results = response
-      .map(({ data }) => data)
-      .map((elem) => setPokemon(elem));
+    const results = response.map(({ data }) => setPokemon(data));
     return results;
   } catch (error) {
     console.log(error);
