@@ -7,13 +7,16 @@ import SearchBar from "../searchBar/SearchBar";
 import { getPokemons } from "../../actions";
 import "./Home.css";
 import Filter from "../filter/Filter";
+import Spinner from "../spinner/Spinner";
 
 const Home = () => {
   const dispatch = useDispatch();
   const pokemons = useSelector((state) => state.pokemons);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    dispatch(getPokemons());
+    dispatch(getPokemons()).then(() => setIsLoading(false));
   }, [dispatch]);
 
   // Pagination
@@ -40,14 +43,16 @@ const Home = () => {
         allPokemons={pokemons.length}
         paginate={setCurrentPage}
       />
-      {!pokemons ? (
+      {/* {!pokemons ? (
         <div>
           <h3>Oops! Pokemons not found.</h3>
           <button onClick={() => dispatch(getPokemons())}>Refresh</button>
         </div>
       ) : (
         currentPokemons && <Cards pokemons={currentPokemons} />
-      )}
+      )} */}
+      {isLoading && <Spinner />}
+      {!isLoading && currentPokemons && <Cards pokemons={currentPokemons} />}
       <div className="footer-home" />
     </div>
   );
