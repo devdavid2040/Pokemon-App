@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
 import LandingPage from "./components/landingPage/LandingPage";
 import Create from "./components/create/Create";
 import Home from "./components/home/Home";
@@ -15,7 +14,7 @@ function App() {
           <Route exact path="/home" component={Home} />
           <Route exact path="/create" component={Create} />
           <Route exact path="/pokemons/:id" component={Detail} />
-          <Route component={ErrorPage} />
+          <Route path="*" component={ErrorPage} />
         </Switch>
       </div>
     </Router>

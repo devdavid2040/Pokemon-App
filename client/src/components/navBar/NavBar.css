@@ -1,10 +1,11 @@
 .navBar {
   display: flex;
+  position:relative;
   align-items: center;
   height: 130px;
   justify-content: space-between;
   background: #b21919;
-  box-shadow: 0px 0.5px 10px 1px rgba(0, 0, 0, 0.377);
+  box-shadow: 0px 0.5px 7px 1px rgba(0, 0, 0, 0.377);
 }
 
 #img-logo {

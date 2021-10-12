@@ -26,13 +26,14 @@ export const order = (state, value) => {
 };
 
 export const reduceTypes = (arr) => {
-  return arr
-    .map(({ types }) => types && types)
+  if (arr.length) {
+    return arr.map((elem) => elem?.types)
     .flat()
     .reduce((acc, cur) => {
-      if (!acc.includes(cur.name)) {
-        acc.push(cur.name);
+      if (!acc.includes(cur?.name)) {
+        acc.push(cur?.name);
       }
       return acc;
     }, []);
+  }
 };

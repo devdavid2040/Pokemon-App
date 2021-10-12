@@ -1,4 +1,4 @@
-const axios = require("axios");
+const axios = require("axios").default;
 const { Pokemon, Type } = require("../db");
 
 const upperFirst = (str) => {

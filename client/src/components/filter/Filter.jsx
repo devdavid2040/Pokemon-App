@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { order, filterByType, filterCreated } from "../../actions/index";
+import { order, filterByType, filterCreated } from "../../redux/actions/index";
 import { reduceTypes } from "../../utils";
 import "./Filter.css";
 
@@ -41,7 +41,7 @@ const Filter = ({ setOrder, setCurrentPage }) => {
           Select type
         </option>
         <option value="allTypes">All</option>
-        {allPokemons &&
+        {allPokemons.length && allPokemons &&
           reduceTypes(allPokemons).map((elem, idx) => (
             <option key={idx} value={elem}>
               {elem}

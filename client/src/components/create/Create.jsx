@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getTypes, postPokemon } from "../../actions/index";
+import { getTypes, postPokemon } from "../../redux/actions/index";
 import NavBar from "../navBar/NavBar";
 import validate from "../../utils/validate";
 import swal from "sweetalert";

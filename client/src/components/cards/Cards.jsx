@@ -9,8 +9,7 @@ const Cards = ({ pokemons }) => {
       {!pokemons || !pokemons.length ? (
         <Spinner />
       ) : (
-        pokemons &&
-        pokemons.map((elem) => (
+        pokemons?.map((elem) => (
           <Card
             key={elem.id}
             id={elem.id}

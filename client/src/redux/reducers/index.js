@@ -1,39 +1,52 @@
-import { order } from "../utils/index";
-import {
-  GET_POKEMONS,
-  GET_TYPES,
-  GET_BY_NAME,
-  GET_DETAIL,
-  POST_POKEMON,
-  ORDER,
-  FILTER_BY_TYPE,
-  FILTER_CREATED,
-} from "../actions/index";
+import { order } from "../../utils/index";
+import * as type from "../types/index";
 
 const initialState = {
   allPokemons: [],
   pokemons: [],
   types: [],
   detail: {},
+  isLoading: false,
+  error: {
+    status: false,
+    message: null,
+  },
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_POKEMONS:
+    case type.GET_POKEMONS:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case type.GET_POKEMONS_SUCCESS:
       return {
         ...state,
         allPokemons: action.payload,
         pokemons: action.payload,
+        isLoading: false,
       };
 
-    case GET_TYPES:
+    case type.GET_POKEMONS_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: {
+          status: true,
+          message: action.payload
+        },
+      };
+
+    case type.GET_TYPES:
       const types = state.types.length > 0 ? state.types : action.payload;
       return {
         ...state,
         types: types,
       };
 
-    case GET_BY_NAME:
+    case type.GET_BY_NAME:
       const pokemonFound = !action.payload.length
         ? (action.payload[0] = null)
         : action.payload;
@@ -42,25 +55,25 @@ const rootReducer = (state = initialState, action) => {
         pokemons: pokemonFound,
       };
 
-    case GET_DETAIL:
+    case type.GET_DETAIL:
       return {
         ...state,
         detail: action.payload,
       };
 
-    case POST_POKEMON:
+    case type.POST_POKEMON:
       return {
         ...state,
       };
 
     // Order and filter
-    case ORDER:
+    case type.ORDER:
       return {
         ...state,
         pokemons: order(state, action.payload),
       };
 
-    case FILTER_BY_TYPE:
+    case type.FILTER_BY_TYPE:
       const allPokemons = state.allPokemons;
       const typeFilter =
         action.payload === "allTypes"
@@ -73,7 +86,7 @@ const rootReducer = (state = initialState, action) => {
         pokemons: typeFilter,
       };
 
-    case FILTER_CREATED:
+    case type.FILTER_CREATED:
       const allPokemonsFilter = state.allPokemons;
       let createdFilter;
       if (action.payload === "all") {

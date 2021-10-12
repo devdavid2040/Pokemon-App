@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,600;1,900&display=swap");
+
 .filters-div {
   display: flex;
   flex-wrap: wrap;
@@ -9,4 +11,9 @@
   background-color: rgb(235, 235, 235);
   padding: 10px;
   margin: 20px;
+  border-radius: 4px;
+  border-color: rgba(0, 184, 184, 0.308);
+  outline: none;
+  font-family: Fira Sans;
+  font-size: 15px;
 }

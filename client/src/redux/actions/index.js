@@ -1,23 +1,25 @@
 import axios from "axios";
-export const GET_POKEMONS = "GET_POKEMONS";
-export const GET_TYPES = "GET_TYPES";
-export const GET_BY_NAME = "GET_BY_NAME";
-export const GET_DETAIL = "GET_DETAIL";
-export const POST_POKEMON = "POST_POKEMON";
-// Order and filter
-export const ORDER = "ORDER";
-export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
-export const FILTER_CREATED = "FILTER_CREATED";
+import * as types from "../types/index";
 
 const BASE_URL = "http://localhost:3001";
 
 export const getPokemons = () => {
   return async (dispatch) => {
     try {
+      dispatch({ type: types.GET_POKEMONS });
       const { data } = await axios(`${BASE_URL}/pokemons`);
-      return dispatch({ type: GET_POKEMONS, payload: data });
+      return data
+        ? dispatch({ type: types.GET_POKEMONS_SUCCESS, payload: data })
+        : dispatch({
+            type: types.GET_POKEMONS_FAILED,
+            payload: "Please, refresh the page",
+          });
     } catch (error) {
       console.log(error);
+      dispatch({
+        type: types.GET_POKEMONS_FAILED,
+        payload: error.message,
+      });
     }
   };
 };
@@ -26,7 +28,7 @@ export const getTypes = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios(`${BASE_URL}/types`);
-      return dispatch({ type: GET_TYPES, payload: data });
+      return dispatch({ type: types.GET_TYPES, payload: data });
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +41,7 @@ export const getByName = (name) => {
       const { data } = await axios(
         `http://localhost:3001/pokemons?name=${name}`
       );
-      return dispatch({ type: GET_BY_NAME, payload: data });
+      return dispatch({ type: types.GET_BY_NAME, payload: data });
     } catch (error) {
       console.log(error);
     }
@@ -50,7 +52,7 @@ export const getDetail = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios(`http://localhost:3001/pokemons/${id}`);
-      return dispatch({ type: GET_DETAIL, payload: data });
+      return dispatch({ type: types.GET_DETAIL, payload: data });
     } catch (error) {
       console.log(error);
     }
@@ -75,21 +77,21 @@ export const postPokemon = (payload) => {
 
 export const order = (payload) => {
   return {
-    type: ORDER,
+    type: types.ORDER,
     payload,
   };
 };
 
 export const filterByType = (payload) => {
   return {
-    type: FILTER_BY_TYPE,
+    type: types.FILTER_BY_TYPE,
     payload,
   };
 };
 
 export const filterCreated = (payload) => {
   return {
-    type: FILTER_CREATED,
+    type: types.FILTER_CREATED,
     payload,
   };
 };
