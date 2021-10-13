@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Cards from "../cards/Cards";
 import NavBar from "../navBar/NavBar";
@@ -35,8 +35,7 @@ const Home = () => {
     <div className="home-container">
       <NavBar />
       <SearchBar />
-      {order && <h5>Sorted by {order}</h5>
-      }
+      {order && <h5>Sorted by {order}</h5>}
       <Filter setOrder={setOrder} setCurrentPage={setCurrentPage} />
       <Pagination
         pokemonsPerPage={pokemonsPerPage}

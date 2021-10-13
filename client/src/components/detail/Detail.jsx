@@ -26,7 +26,7 @@ const Detail = ({ match }) => {
 
             <div className="detail-content">
               <div className="detail-image">
-                <img src={pokemon.image} alt="" />
+                <img src={pokemon.image} alt={pokemon.name} />
               </div>
 
               <div className="detail-description">
@@ -40,6 +40,10 @@ const Detail = ({ match }) => {
                     <p>Defense: {pokemon.defense}</p>
                   </div>
                   <div className="detail-description-column">
+                    <div style={{ display: "flex", justifyContent: "center"}}>
+                      <div style={{ display: "flex", alignItems:"center", border: "1px solid black",backgroundColor:"green", paddingLeft: "10px", paddingRight: "10px" }}>Speed</div>
+                      <div style={{ border: "1px solid black", padding: "4px", backgroundColor:"white" }}>{pokemon.speed}</div>
+                    </div>
                     <p>Speed: {pokemon.speed}</p>
                     <p>Height: {pokemon.height}</p>
                     <p>Weight: {pokemon.weight}</p>
