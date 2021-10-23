@@ -1,14 +1,17 @@
 .home-container {
-  background: #eb6d18;
+  /* background: #eb6d18; */
+  background-image: url("../../assets/home-background.jpg");
+  background-size: 100vw 300vh;
+}
+
+.home-pagination {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  border-radius: 7px;
+  background-color: chocolate;
+  margin-top: 5rem;
 }
 
 .footer-home {
-  margin-top: 50px;
-  height: 150px;
-  background: #98521a;
-  background: linear-gradient(
-    0deg,
-    #98521a 20%,
-    rgba(0, 212, 255, 0) 100%
-  );
 }

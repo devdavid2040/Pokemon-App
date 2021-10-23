@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Cards from "../cards/Cards";
-import NavBar from "../navBar/NavBar";
-import Pagination from "../pagination/Pagination";
-import SearchBar from "../searchBar/SearchBar";
 import { getPokemons } from "../../redux/actions/index";
-import "./Home.css";
+import NavBar from "../navBar/NavBar";
+import SearchBar from "../searchBar/SearchBar";
 import Filter from "../filter/Filter";
+import Cards from "../cards/Cards";
+import Pagination from "../pagination/Pagination";
 import Spinner from "../spinner/Spinner";
+import Footer from "../Footer/Footer";
+import "./Home.css";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { pokemons } = useSelector((state) => state);
-  const { isLoading } = useSelector((state) => state);
+  const { pokemons, isLoading } = useSelector((state) => state);
 
-  useEffect(() => {
-    dispatch(getPokemons());
-  }, [dispatch]);
+  // Order state
+  const [order, setOrder] = React.useState("");
 
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
+  // Pagination states
+  const [currentPage, setCurrentPage] = React.useState(1);
   const pokemonsPerPage = 9;
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
@@ -28,8 +27,9 @@ const Home = () => {
     indexOfLastPokemon
   );
 
-  // Update order
-  const [order, setOrder] = useState("");
+  React.useEffect(() => {
+    dispatch(getPokemons());
+  }, [dispatch]);
 
   return (
     <div className="home-container">
@@ -37,14 +37,18 @@ const Home = () => {
       <SearchBar />
       {order && <h5>Sorted by {order}</h5>}
       <Filter setOrder={setOrder} setCurrentPage={setCurrentPage} />
-      <Pagination
-        pokemonsPerPage={pokemonsPerPage}
-        allPokemons={pokemons.length}
-        paginate={setCurrentPage}
-      />
       {isLoading && <Spinner />}
       {!isLoading && currentPokemons && <Cards pokemons={currentPokemons} />}
-      <div className="footer-home" />
+      <div className="home-pagination">
+        <Pagination
+          pokemonsPerPage={pokemonsPerPage}
+          allPokemons={pokemons.length}
+          paginate={setCurrentPage}
+        />
+      </div>
+      <div className="footer-home">
+        <Footer />
+      </div>
     </div>
   );
 };
