@@ -32,7 +32,7 @@ const getApiPokemons = async () => {
     const { data } = await axios.get(
       "https://pokeapi.co/api/v2/pokemon?limit=40"
     );
-    const response = await axios.all(
+    const response = await Promise.all(
       data.results.map(({ url }) => axios.get(url))
     );
     const results = response.map(({ data }) => setPokemon(data));
@@ -65,8 +65,9 @@ const getAllPokemons = async () => {
   try {
     const apiResponse = await getApiPokemons();
     const dbResponse = await getDbPokemons();
-    const results = dbResponse.concat(apiResponse).slice(0, 40);
-    return results;
+    return apiResponse
+      ? dbResponse.concat(apiResponse).slice(0, 40)
+      : dbResponse;
   } catch (error) {
     console.log(error);
   }

@@ -6,9 +6,10 @@ const BASE_URL = "http://localhost:3001";
 export const getPokemons = () => {
   return async (dispatch) => {
     try {
-      dispatch({ type: types.GET_POKEMONS });
-      const { data } = await axios(`${BASE_URL}/pokemons`);
-      return data
+      dispatch({ type: types.GET_POKEMONS_REQUEST });
+      const { data, status } = await axios(`${BASE_URL}/pokemons`);
+      console.log("Pokemons --> ", data);
+      return status === 200
         ? dispatch({ type: types.GET_POKEMONS_SUCCESS, payload: data })
         : dispatch({
             type: types.GET_POKEMONS_FAILED,

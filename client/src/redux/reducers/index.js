@@ -15,7 +15,7 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.GET_POKEMONS:
+    case type.GET_POKEMONS_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -35,7 +35,7 @@ const rootReducer = (state = initialState, action) => {
         isLoading: false,
         error: {
           status: true,
-          message: action.payload
+          message: action.payload,
         },
       };
 

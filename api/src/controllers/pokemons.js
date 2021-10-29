@@ -24,7 +24,7 @@ const getPokemons = async (req, res, next) => {
         : res.status(400).send("Pokemon not found");
     } else {
       const allPokemons = await getAllPokemons();
-      return allPokemons
+      return allPokemons.length
         ? res.status(200).send(allPokemons)
         : res.status(400).send("Error. Please, refresh the page");
     }
