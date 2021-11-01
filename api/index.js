@@ -27,7 +27,7 @@ const { upperFirst } = require("./src/utils/index");
 const { PORT } = process.env;
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   server.listen(PORT, async () => {
     try {
       const { data } = await axios.get("https://pokeapi.co/api/v2/type");
