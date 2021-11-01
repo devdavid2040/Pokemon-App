@@ -6,7 +6,7 @@ import "./Filter.css";
 
 const Filter = ({ setOrder, setCurrentPage }) => {
   const dispatch = useDispatch();
-  const allPokemons = useSelector((state) => state.allPokemons);
+  const { allPokemons } = useSelector((state) => state.pokemons);
 
   const handleOrder = (e) => {
     dispatch(order(e.target.value));

@@ -10,7 +10,7 @@ import "./Create.css";
 const Create = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const types = useSelector((state) => state.types);
+  const { types } = useSelector((state) => state.pokemons);
 
   const [errors, setErrors] = useState({});
 
@@ -27,8 +27,10 @@ const Create = () => {
   });
 
   useEffect(() => {
-    dispatch(getTypes());
-  }, [dispatch]);
+    if (!types.length) {
+      dispatch(getTypes());
+    }
+  }, [dispatch, types]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

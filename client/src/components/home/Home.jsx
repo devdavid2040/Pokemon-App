@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getPokemons } from "../../redux/actions/index";
+import { getPokemons } from "../../redux/actions/pokemonsActions";
 import NavBar from "../navBar/NavBar";
 import SearchBar from "../searchBar/SearchBar";
 import Filter from "../filter/Filter";
@@ -12,7 +12,7 @@ import "./Home.css";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { pokemons, isLoading } = useSelector((state) => state);
+  const { pokemons, isLoading } = useSelector((state) => state.pokemons);
 
   // Order state
   const [order, setOrder] = React.useState("");

@@ -1,0 +1,1 @@
+export const REQUEST_FAILED = "REQUEST_FAILED";
