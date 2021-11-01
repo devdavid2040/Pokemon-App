@@ -17,21 +17,22 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+require("dotenv").config();
+const axios = require("axios").default;
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 const { Type } = require("./src/db");
 const { upperFirst } = require("./src/utils/index");
-const axios = require("axios");
+
+const { PORT } = process.env;
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3001, async () => {
+  server.listen(PORT, async () => {
     try {
       const { data } = await axios.get("https://pokeapi.co/api/v2/type");
       const arrTypes = data.results
-        .map(({ name }) => {
-          return { name: upperFirst(name) };
-        })
+        .map(({ name }) => ({ name: upperFirst(name) }))
         .sort((a, b) => {
           if (a.name < b.name) return -1;
           if (b.name < a.name) return 1;
@@ -41,7 +42,7 @@ conn.sync({ force: true }).then(() => {
     } catch (error) {
       console.log(error);
     } finally {
-      console.log("%s listening at 3001"); // eslint-disable-line no-console
+      console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
     }
   });
 });

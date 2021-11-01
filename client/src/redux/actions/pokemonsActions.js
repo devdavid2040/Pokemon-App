@@ -1,13 +1,11 @@
 import axios from "axios";
 import * as types from "../types/pokemonTypes";
 
-const BASE_URL = "http://localhost:3001";
-
 export const getPokemons = () => {
   return async (dispatch) => {
     try {
       dispatch({ type: types.GET_POKEMONS_REQUEST });
-      const { data, status } = await axios(`${BASE_URL}/pokemons`);
+      const { data, status } = await axios("/pokemons");
       return status === 200
         ? dispatch({ type: types.GET_POKEMONS_SUCCESS, payload: data })
         : dispatch({ type: types.GET_POKEMONS_FAILED, payload: data });
@@ -21,7 +19,7 @@ export const getPokemons = () => {
 export const getTypes = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios(`${BASE_URL}/types`);
+      const { data } = await axios("/types");
       return dispatch({ type: types.GET_TYPES, payload: data });
     } catch (error) {
       console.log(error);
@@ -32,9 +30,7 @@ export const getTypes = () => {
 export const getByName = (name) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios(
-        `http://localhost:3001/pokemons?name=${name}`
-      );
+      const { data } = await axios(`/pokemons?name=${name}`);
       return dispatch({ type: types.GET_BY_NAME, payload: data });
     } catch (error) {
       console.log(error);
@@ -45,7 +41,7 @@ export const getByName = (name) => {
 export const getDetail = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios(`http://localhost:3001/pokemons/${id}`);
+      const { data } = await axios(`/pokemons/${id}`);
       return dispatch({ type: types.GET_DETAIL, payload: data });
     } catch (error) {
       console.log(error);
@@ -56,10 +52,10 @@ export const getDetail = (id) => {
 export const postPokemon = (payload) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/pokemons",
-        payload
-      );
+      const response = await axios.post("/pokemons", payload);
+      if (response?.status === 200) {
+        dispatch({ type: types.POST_POKEMON });
+      }
       return response;
     } catch (error) {
       console.log(error);
@@ -67,25 +63,17 @@ export const postPokemon = (payload) => {
   };
 };
 
-// Order and filters
+export const order = (payload) => ({
+  type: types.ORDER,
+  payload,
+});
 
-export const order = (payload) => {
-  return {
-    type: types.ORDER,
-    payload,
-  };
-};
+export const filterByType = (payload) => ({
+  type: types.FILTER_BY_TYPE,
+  payload,
+});
 
-export const filterByType = (payload) => {
-  return {
-    type: types.FILTER_BY_TYPE,
-    payload,
-  };
-};
-
-export const filterCreated = (payload) => {
-  return {
-    type: types.FILTER_CREATED,
-    payload,
-  };
-};
+export const filterCreated = (payload) => ({
+  type: types.FILTER_CREATED,
+  payload,
+});
